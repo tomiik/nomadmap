@@ -5,11 +5,12 @@ var map;
 var cityMap = {};
 var circle_list = new google.maps.MVCArray();
 var rect_list = new google.maps.MVCArray();
+var myLocation = {};
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 2
+    center: myLocation,
+    zoom: 4
   });
 }
 
@@ -17,32 +18,52 @@ $(document).ready(function(){
   console.log("ready");
   //write();
   //run();
-  Util.loading("retrieving nomad data from nomadlist.com");
+  Util.loading("retrieving location from ipinfo.io");
   run();
-  initMap();
 });
 
 function run(){
-
+  console.log("ajax-ip:start");
   $.ajax({
-    url: sendUrlBase,
+    url: "https://ipinfo.io/json",
     crossDomain: true,
     dataType: 'json',
-    type:"GET",
+    type: "GET",
   }).done(function(data){
-    console.log("ajax:data received");
-    nObj = data.result;
-    //console.log(nObj);
-    makeCityMap(nObj);
-    Buttons.selector_clicked($("#population"));
-    Util.loaded();
+    console.log("ajax-ip:data received");
 
-    //console.log(data);
+    var location = data.loc.split(",");
+    myLocation["lat"] = parseInt(location[0]);
+    myLocation["lng"] = parseInt(location[1]);
+    console.log(myLocation);
+    initMap();
+
+    console.log("ajax-nomadlist:start");
+    Util.loading("retrieving nomad data from nomadlist.com");
+    $.ajax({
+      url: sendUrlBase,
+      crossDomain: true,
+      dataType: 'json',
+      type:"GET",
+    }).done(function(data){
+      console.log("ajax-nomadlist:data received");
+      nObj = data.result;
+      //console.log(nObj);
+      makeCityMap(nObj);
+      Buttons.selector_clicked($("#population"));
+      Util.loaded();
+      //console.log(data);
+    }).fail(function(data){
+      console.log("ajax-nomadlist:error");
+      //console.log(data);
+    }).always(function(data){
+      console.log("ajax-nomadlist:end");
+    });
   }).fail(function(data){
-    console.log("ajax:error");
+    console.log("ajax-ip:error");
     //console.log(data);
   }).always(function(data){
-    console.log("ajax:end");
+    console.log("ajax-ip:end");
   });
 };
 

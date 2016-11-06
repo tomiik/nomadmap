@@ -9,7 +9,7 @@ Draw = {
     }
     else if(str === "living"){
       func = Getter.living;
-      var multiple = 0.1;
+      var multiple = 1;
     }
     else if(str === "coffee"){
       func = Getter.coffee;
@@ -35,7 +35,7 @@ Draw = {
     }
     else if(str === "safety"){
       func = Getter.safety;
-      var multiple = 1000;
+      var multiple = 10000;
     }
     else if(str === "racism"){
       func = Getter.racism;
