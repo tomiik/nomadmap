@@ -17,6 +17,7 @@ $(document).ready(function(){
   console.log("ready");
   //write();
   //run();
+  Util.loading("retrieving nomad data from nomadlist.com");
   run();
   initMap();
 });
@@ -31,9 +32,10 @@ function run(){
   }).done(function(data){
     console.log("ajax:data received");
     nObj = data.result;
-    console.log(nObj);
-
+    //console.log(nObj);
     makeCityMap(nObj);
+    Buttons.selector_clicked($("#population"));
+    Util.loaded();
 
     //console.log(data);
   }).fail(function(data){
@@ -83,3 +85,6 @@ function makeCityMap(nObj){
     };
   }
 }
+$(".selector").click(function(){
+  Buttons.selector_clicked(this);
+});

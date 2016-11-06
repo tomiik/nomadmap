@@ -5,16 +5,35 @@ html, body {
 }
 .container-box {
   position: relative;
-  display:inline-flex;
+  display: inline-flex;
   //border-style: solid;
   //color: green;
   width: 100%;
   height: 100%;
+  #loader-anime {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    margin: 0 auto;
+    margin-top: -2em;
+  }
+  #loader-shadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.3);
+    z-index: 2;
+  }
+  .loaded{
+    visibility: hidden;
+  }
   #map {
     //border-style: solid;
     //color: blue;
     width: 100%;
     height: 100%;
+    z-index: 0;
   }
   #selector {
     position: absolute;
@@ -24,9 +43,12 @@ html, body {
     right: 0;
     color: red;
     width: 200px;
+    z-index: 1;
   }
   .selector {
     box-shadow: 2px 2px 2px #000;
+    cursor: pointer;
+    user-select: none;
   }
   .selector:hover {
     background-color: #aaa;
