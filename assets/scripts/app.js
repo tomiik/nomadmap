@@ -3,6 +3,8 @@ var sendUrlBase = "https://nomadlist.com/api/v2/list/cities"
 var nObj = "empty";
 var map;
 var cityMap = {};
+var circle_list = new google.maps.MVCArray();
+var rect_list = new google.maps.MVCArray();
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -17,9 +19,7 @@ $(document).ready(function(){
   //run();
   run();
   initMap();
-
 });
-
 
 function run(){
 
@@ -33,31 +33,7 @@ function run(){
     nObj = data.result;
     console.log(nObj);
 
-    var cityName = "";
-    var countryName = "";
-    var location = {};
-    var image = [];
-    var people = 0;
-    // for(var i = 0; i < nObj.length; i++){
-    //   e = nObj[i];
-    //   cityName = e.info.city.name;
-    //   countryName = e.info.country.name;
-    //   location["latitude"] = e.info.location.latitude;
-    //   location["longitude"] = e.info.location.longitude;
-    //   image = e.media.image;
-    //   people = e.people.checkins;
-    //
-    //   console.log("country name:" + countryName);
-    //   console.log("city name:" + cityName);
-    //   console.log("location:" + location["latitude"] + "," + location["longitude"]);
-    //   console.log("people:" + people);
-    //   console.log("");
-    // }
     makeCityMap(nObj);
-    //drawCircle("#0000ff",1000000,getPeople);
-    drawCircle("#ff0000",10000,getBeer);
-    drawRect("#0000ff",0.5,getBeer);
-    //drawCircle("#00ff00",100000,getCoffee);
 
     //console.log(data);
   }).fail(function(data){
@@ -88,78 +64,22 @@ function makeCityMap(nObj){
     racism = e.scores.racism;
     internet = e.info.internet.speed.download;
 
-      cityMap[cityName] = {
+    cityMap[cityName] = {
       "country": countryName,
-       "center":{"lat": location["latitude"],
-       "lng": location["longitude"]},
-       "population":people,
-       "coffee": coffee,
-       "beer": beer,
-       "drink": drink,
-       "airbnb": airbnb,
-       "hotel": hotel,
-       "coworking": coworking,
-       "hotel": hotel,
-       "nomad": nomad,
-       "safety": safety,
-       "racism": racism,
-       "internet": internet
-     };
-    //console.log(cityMap[cityName]);
+      "center":{"lat": location["latitude"],
+      "lng": location["longitude"]},
+      "population":people,
+      "coffee": coffee,
+      "beer": beer,
+      "drink": drink,
+      "airbnb": airbnb,
+      "hotel": hotel,
+      "coworking": coworking,
+      "hotel": hotel,
+      "nomad": nomad,
+      "safety": safety,
+      "racism": racism,
+      "internet": internet
+    };
   }
-}
-
-function drawCircle(color,size,getInfo){
-  for(var city in cityMap){
-    data = parseInt(getInfo(cityMap[city]));
-    if(data !== 0){
-      var cityCircle = new google.maps.Circle({
-        strokeColor: color,
-        strokeOpacity: 0.5,
-        strokeWeight: 1,
-        fillColor: color,
-        fillOpacity: 0.35,
-        map: map,
-        center: cityMap[city].center,
-        radius: Math.sqrt(data) * size
-      });
-    }
-  }
-}
-
-
-function drawRect(color,size,getInfo){
-  for(var city in cityMap){
-    data = parseInt(getInfo(cityMap[city]));
-    if(data !== 0){
-      console.log(parseInt(cityMap[city].center["lat"]) + data * size);
-      var cityRectangle = new google.maps.Rectangle({
-        strokeColor: color,
-        strokeOpacity: 0.5,
-        strokeWeight: 1,
-        fillColor: color,
-        fillOpacity: 0.35,
-        map: map,
-        bounds:{
-            north: cityMap[city].center["lat"] + data * size,
-            south: cityMap[city].center["lat"],
-            east: cityMap[city].center["lng"] + size/16,
-            west: cityMap[city].center["lng"] - size/16,
-        }
-      });
-    }
-  }
-}
-
-function getPeople(city){
-  console.log("people");
-  return city.people;
-}
-function getBeer(city){
-  console.log("beer");
-  return city.beer;
-}
-function getCoffee(city){
-  console.log("coffee");
-  return city.coffee;
 }

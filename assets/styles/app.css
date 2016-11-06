@@ -3,8 +3,32 @@ html, body {
   margin: 0;
   padding: 0; }
 
-#map {
-  width: 90%;
-  height: 60%; }
+.container-box {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  height: 100%; }
+  .container-box #map {
+    width: 100%;
+    height: 100%; }
+  .container-box #selector {
+    position: absolute;
+    background-color: transparent;
+    top: 10px;
+    right: 0;
+    color: red;
+    width: 200px; }
+  .container-box .selector {
+    box-shadow: 2px 2px 2px #000; }
+  .container-box .selector:hover {
+    background-color: #aaa; }
+  .container-box .selected {
+    box-shadow: 0px 0px 0px #000;
+    color: #ccc;
+    background-color: #222; }
+  .container-box .selected:hover {
+    box-shadow: 0px 0px 0px #000;
+    color: #ccc;
+    background-color: #222; }
 
 /*# sourceMappingURL=app.css.map */

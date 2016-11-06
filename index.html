@@ -5,15 +5,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script type="text/javascript" src="assets/scripts/jquery.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="assets/styles/app.css">
   <style>
 
-    </style>
+  </style>
   <title>Document</title>
 </head>
 <body>
+  <div class="container-box">
+
   <div id="map"></div>
+  <div id="selector">
+    <div id="population" class="chip selector">
+      <i class="fa fa-users" aria-hidden="true"></i>
+      nomad population
+    </div>
+    <br>
+    <div id="living" class="chip selector">
+      <i class="fa fa-home" aria-hidden="true"></i>
+      monthly living cost
+    </div>
+    <br>
+    <div id="coffee" class="chip selector">
+      <i class="fa fa-coffee" aria-hidden="true"></i>
+      coffee price
+    </div>
+    <br>
+    <div id="non_alcoholic" class="chip selector">
+      <i class="fa fa-coffee" aria-hidden="true"></i>
+      non-alcoholic drink
+    </div>
+    <br>
+    <div id="beer" class="chip selector">
+      <i class="fa fa-beer" aria-hidden="true"></i>
+      beer cost
+    </div>
+    <br>
+    <div id="hotel" class="chip selector">
+      <i class="fa fa-bed" aria-hidden="true"></i>
+      hotel cost
+    </div>
+    <br>
+    <div id="airbnb" class="chip selector">
+      <i class="fa fa-bed" aria-hidden="true"></i>
+      airbnb
+    </div>
+    <br>
+    <div id="internet_speed" class="chip selector">
+      <i class="fa fa-globe" aria-hidden="true"></i>
+      internet speed
+    </div>
+    <br>
+    <div id="safety" class="chip selector">
+      <i class="fa fa-hand-peace-o" aria-hidden="true"></i>
+      safety
+    </div>
+    <br>
+    <div id="racism" class="chip selector">
+      <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+      racism
+    </div>
+  </div>
+</div>
+</div>
+
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa11_LSd6uIyUUrXF1N5JJ8-uogr4oM8Y&callback=initMap" type="text/javascript"></script>
-<script type="text/javascript" src="assets/scripts/app.js"></script>
+  <script type="text/javascript" src="assets/scripts/draw.js"></script>
+  <script type="text/javascript" src="assets/scripts/getter.js"></script>
+  <script type="text/javascript" src="assets/scripts/buttons.js"></script>
+  <script type="text/javascript" src="assets/scripts/app.js"></script>
+
 </body>
 </html>
