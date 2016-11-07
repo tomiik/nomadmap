@@ -19,10 +19,25 @@ $(document).ready(function(){
   //write();
   //run();
   Util.loading("retrieving location from ipinfo.io");
-  run();
+  getLocation();
 });
 
-function run(){
+function getLocation(){
+  if(navigator.geolocation){
+   navigator.geolocation.getCurrentPosition(getLocationSuccessCallback, getLocationErrorCallback);
+  }else{
+    getLocationErrorCallback();
+  }
+}
+
+function getLocationSuccessCallback(position){
+  myLocation["lat"] = position.coords.latitude;
+  myLocation["lng"] = position.coords.longitude;
+  initMap();
+  getNomadList();
+}
+
+function getLocationErrorCallback(){
   console.log("ajax-ip:start");
   $.ajax({
     url: "https://ipinfo.io/json",
@@ -37,35 +52,40 @@ function run(){
     myLocation["lng"] = parseInt(location[1]);
     console.log(myLocation);
     initMap();
+    getNomadList();
 
-    console.log("ajax-nomadlist:start");
-    Util.loading("retrieving nomad data from nomadlist.com");
-    $.ajax({
-      url: sendUrlBase,
-      crossDomain: true,
-      dataType: 'json',
-      type:"GET",
-    }).done(function(data){
-      console.log("ajax-nomadlist:data received");
-      nObj = data.result;
-      //console.log(nObj);
-      makeCityMap(nObj);
-      Buttons.selector_clicked($("#population"));
-      Util.loaded();
-      //console.log(data);
-    }).fail(function(data){
-      console.log("ajax-nomadlist:error");
-      //console.log(data);
-    }).always(function(data){
-      console.log("ajax-nomadlist:end");
-    });
   }).fail(function(data){
     console.log("ajax-ip:error");
     //console.log(data);
   }).always(function(data){
     console.log("ajax-ip:end");
   });
-};
+}
+
+function getNomadList()
+{
+  console.log("ajax-nomadlist:start");
+  Util.loading("retrieving nomad data from nomadlist.com");
+  $.ajax({
+    url: sendUrlBase,
+    crossDomain: true,
+    dataType: 'json',
+    type:"GET",
+  }).done(function(data){
+    console.log("ajax-nomadlist:data received");
+    nObj = data.result;
+    //console.log(nObj);
+    makeCityMap(nObj);
+    Buttons.selector_clicked($("#population"));
+    Util.loaded();
+    //console.log(data);
+  }).fail(function(data){
+    console.log("ajax-nomadlist:error");
+    //console.log(data);
+  }).always(function(data){
+    console.log("ajax-nomadlist:end");
+  });
+}
 
 function makeCityMap(nObj){
   for(var i = 0; i < nObj.length; i++){
